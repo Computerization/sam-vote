@@ -49,16 +49,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('vote/{vote}/export', 'VoteController@export');
 
     Route::get('vote/{id}/stat', 'VoteController@stat');
-    Route::get('vote/{id}/edit', 'VoteController@edit');
-    Route::post('vote/{id}/edit', 'VoteController@update');
-    Route::delete('vote/{id}/delete', 'VoteController@destroy');
-    Route::delete('vote/{id}/clear', 'VoteController@clearResponse');
-    Route::delete('question/{id}', 'QuestionController@destroy');
+    // Route::get('vote/{id}/edit', 'VoteController@edit');
+    // Route::post('vote/{id}/edit', 'VoteController@update');
+    // Route::delete('vote/{id}/delete', 'VoteController@destroy');
+    // Route::delete('vote/{id}/clear', 'VoteController@clearResponse');
+    // Route::delete('question/{id}', 'QuestionController@destroy');
 
-    Route::put('group/{id}', 'VoteGroupController@update');
-    Route::delete('group/{id}', 'VoteGroupController@destroy');
-    Route::get('group/{id}/addvote', 'VoteGroupController@selectvote');
-    Route::post('group/{id}/addvote', 'VoteGroupController@addvote');
-    Route::post('group/{id}/rmvote', 'VoteGroupController@rmvote');
+    // Route::put('group/{id}', 'VoteGroupController@update');
+    // Route::delete('group/{id}', 'VoteGroupController@destroy');
+    // Route::get('group/{id}/addvote', 'VoteGroupController@selectvote');
+    // Route::post('group/{id}/addvote', 'VoteGroupController@addvote');
+    // Route::post('group/{id}/rmvote', 'VoteGroupController@rmvote');
 
 });
