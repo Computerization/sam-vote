@@ -31,7 +31,7 @@
     @endif
 
     <div class="ui raised padded text container segment">
-        <a class="ui left labeled icon basic small button" href="javascript:history.back()">
+        <a class="ui left labeled icon basic small button" href="{{ URL::action('VoteGroupController@show', $vote->votegroup->id) }}">
             <i class="left arrow icon"></i>
                 Back
         </a>
@@ -43,12 +43,6 @@
         <form class="ui form" action="{{ URL::action('VoteController@submit', $vote->id) }}" method="post">
             {{ csrf_field() }}
             @foreach($vote->votecriteria as $question)
-                {{-- @if($question->type == 1)
-                    @include('votes.question.text')
-                @endif
-                @if($question->type == 2)
-                    @include('votes.question.radio')
-                @endif --}}
                 @include('votes.question.text')
             @endforeach
             <button type="submit" class="ui primary button">Submit</button>
