@@ -10,4 +10,6 @@ class VoteGroup extends Model
     {
         return $this->hasMany('App\Vote');
     }
+
+    protected $fillable = ['group_name'];
 }

@@ -18,6 +18,8 @@ class Vote extends Model
 
     public function VoteGroup()
     {
-        return $this->belongsTo('App\VoteGroup')
+        return $this->belongsTo('App\VoteGroup');
     }
+
+    protected $fillable = ['vote_name', 'vote_group_id'];
 }

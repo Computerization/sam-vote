@@ -15,4 +15,6 @@ class VoteCriteria extends Model
     {
         return $this->hasMany('App\Response');
     }
+
+    protected $fillable = ['criteria'];
 }

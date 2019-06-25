@@ -13,7 +13,7 @@ class CreateVoteVotecriteriaTable extends Migration
      */
     public function up()
     {
-        Schema::create('vote_votecriteria', function (Blueprint $table) {
+        Schema::create('vote_vote_criteria', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('vote_id');
             $table->integer('vote_criteria_id');
@@ -28,6 +28,6 @@ class CreateVoteVotecriteriaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vote_votecriteria');
+        Schema::dropIfExists('vote_vote_criteria');
     }
 }
