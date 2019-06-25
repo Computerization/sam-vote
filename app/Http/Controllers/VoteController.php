@@ -35,7 +35,10 @@ class VoteController extends Controller
 
     public function addcriteria($vid)
     {
-        $criterias = VoteCriteria::all();
+        // $criterias = VoteCriteria::all();
+        $criterias = VoteCriteria::whereDoesntHave('vote', function($query) use ($vid) {
+            $query->where('vote_id', $vid);
+        })->get();
         // dd($criterias);
         return view('criteria.index', ['criterias'=>$criterias, 'vote_id'=>$vid]);
     }
