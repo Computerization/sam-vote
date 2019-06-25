@@ -15,6 +15,7 @@ class CreateVoteCriteriasTable extends Migration
     {
         Schema::create('vote_criterias', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('criteria');
             $table->timestamps();
         });
     }

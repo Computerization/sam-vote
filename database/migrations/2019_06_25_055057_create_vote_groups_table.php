@@ -15,6 +15,7 @@ class CreateVoteGroupsTable extends Migration
     {
         Schema::create('vote_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('group_name');
             $table->timestamps();
         });
     }
