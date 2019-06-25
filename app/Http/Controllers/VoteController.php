@@ -106,8 +106,8 @@ class VoteController extends Controller
     public function stat($id)
     {
         $vote = Vote::find($id);
-        $questions = Vote::find($id)->questions;
-        return view('votes.stat',['vote'=>$vote,'questions'=>$questions]);
+        $responses = Response::where('vote_id', $id)->get();
+        return view('votes.stat',['vote'=>$vote, 'responses'=>$responses]);
     }
 
     /**
@@ -180,37 +180,39 @@ class VoteController extends Controller
 
     public function export(Vote $vote)
     {
-      $questions = $vote->questions()->get();
-      $answers = $vote->questions()->first()->answers()->get();
-      $export_csv = "<table><tr><th>用户名</th>";
-      foreach($questions as $question){
-        $export_csv = $export_csv.'<th>';
-        if($question->type == 2){
-          $question_json = json_decode($question->question_content, true);
-          $export_csv = $export_csv.$question_json['title'];
-        }else{
-          $export_csv = $export_csv.$question->question_content;
-        }
-        $export_csv = $export_csv.'</th>';
-      }
-      $export_csv = $export_csv.'</tr>';
-      foreach($answers as $answer){
-        $export_csv = $export_csv."<tr><td>".$answer->user->name.'</td>';
+        // questions refers to the number of criterias
+        $questions = $vote->votecriteria;
+        $answered_users = Response::where('vote_id', $vote->id)->get()->unique($key = 'user_id', $strict = false);
+        $answers = Response::where('vote_id', $vote->id)->get();
+
+        // Table Header Starts
+        $export_csv = "<table><tr><th>用户名</th>";
         foreach($questions as $question){
-          $export_csv = $export_csv.'<td>';
-          $export_csv = $export_csv.$question->answers->where('user_id',$answer->user_id)->first()->answer_content;
-          $export_csv = $export_csv.'</td>';
+            // print all criterias
+            $export_csv = $export_csv.'<th>';
+            $export_csv = $export_csv.$question->criteria;
+            $export_csv = $export_csv.'</th>';
         }
         $export_csv = $export_csv.'</tr>';
-      }
+        // Table Header Ends
+
+        foreach($answered_users as $answered_user){
+
+            // Print Name of User
+            $export_csv = $export_csv."<tr><td>".$answered_user->user->name.'</td>';
+
+            $user_responses = $answers->where('user_id', $answered_user->user_id);
+            foreach($user_responses as $user_response){
+                // Print responce to each criteria
+                $export_csv = $export_csv.'<td>';
+                $export_csv = $export_csv.$user_response->response;
+                $export_csv = $export_csv.'</td>';
+            }
+            $export_csv = $export_csv.'</tr>';
+        }
+
       $export_csv = $export_csv.'</table>';
-      // dd($users);
-      // $export_csv_gbk = mb_convert_encoding($export_csv, 'gbk', 'auto');
-      // dd(mb_detect_encoding($export_csv_gbk));
-      // return response($export_csv)
-      //       ->header('Content-Type', "text/comma-separated-values; charset=gbk")
-      //       ->header('Content-Disposition', 'attachment;filename = '.$vote->vote_name.'.csv')
-      //       ->header('Accept-ranges', 'bytes');
+
       echo $export_csv;
     }
 
