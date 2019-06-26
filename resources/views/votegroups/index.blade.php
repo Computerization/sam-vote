@@ -19,7 +19,7 @@
 
         <div class="ui padded basic center aligned segment">
             <h1 class="ui header">Vote Groups</h1>
-            @if(Auth::user()->group = 2)
+            @if(Auth::user()->group>1)
                 <div class="ui divider"></div>
                 <a class="ui positive button" href="{{ url('/group/create') }}">
                     New Vote Group...
