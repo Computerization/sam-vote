@@ -59,6 +59,6 @@
     @section('scripts')
         <script type="text/javascript" src="{{ asset('js/qrcode.min.js') }}"></script>
         <script type="text/javascript">
-        new QRCode(document.getElementById("qrcode"), "https://sam-vote.shuye02.com/vote/{{$vote->id}}");
+        new QRCode(document.getElementById("qrcode"), "https://vote.shuye02.com/vote/{{$vote->id}}");
         </script>
     @endsection
